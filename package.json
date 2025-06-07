@@ -1,0 +1,31 @@
+{
+  "name": "taio-merkle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "vitest",
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinhyenvodoi98/taio-merkle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinhyenvodoi98/taio-merkle/issues"
+  },
+  "homepage": "https://github.com/vinhyenvodoi98/taio-merkle#readme",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "tslib": "^2.8.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
+  }
+}
