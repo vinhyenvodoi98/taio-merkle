@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: circleci/node:20-browsers
+      - image: cimg/node:20.19
     steps:
       - checkout
       - restore_cache:
