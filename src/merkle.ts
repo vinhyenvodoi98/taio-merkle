@@ -23,23 +23,25 @@ function createNextLevel(currentLevel: Hash[], tag: string): Hash[] {
 /**
  * Calculate the Merkle root of a list of data
  * @param data - The list of data to calculate the Merkle root of
- * @param tag - Tag for hashing
+ * @param leafTag - Tag for hashing
+ * @param branchTag - Tag for hashing
  * @returns The Merkle root
  * @throws {Error} If data array is empty
  */
-export function calculateMerkleRoot(data: MerkleNode[], tag: string): Hash {
+export function calculateMerkleRoot(data: MerkleNode[], leafTag: string, branchTag: string): Hash {
   if (!data || data.length === 0) {
     throw new Error("Data array cannot be empty");
   }
 
-  validateNotEmpty(tag, "Tag");
+  validateNotEmpty(leafTag, "Leaf tag");
+  validateNotEmpty(branchTag, "Branch tag");
 
   // Create initial level of hashes
-  let currentLevel = data.map((item) => taggedHash(item, tag));
+  let currentLevel = data.map((item) => taggedHash(item, leafTag));
 
   // Build the tree level by level
   while (currentLevel.length > 1) {
-    currentLevel = createNextLevel(currentLevel, tag);
+    currentLevel = createNextLevel(currentLevel, branchTag);
   }
 
   return currentLevel[0];
