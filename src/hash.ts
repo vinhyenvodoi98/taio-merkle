@@ -14,11 +14,11 @@ export function taggedHash(data: string, tag: string): Hash {
   validateNotEmpty(tag, "Tag");
 
   // First hash of tag
-  const tagHash = createHash("sha256").update(tag).digest();
+  const tagHash = createHash("sha256").update(tag, "utf-8").digest();
 
   // Concatenate: tagHash || tagHash || data
   return createHash("sha256")
-    .update(Buffer.concat([tagHash, tagHash, Buffer.from(data)]))
+    .update(Buffer.concat([tagHash, tagHash, Buffer.from(data, "utf-8")]))
     .digest("hex");
 }
 
