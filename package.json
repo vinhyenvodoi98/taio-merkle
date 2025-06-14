@@ -1,6 +1,6 @@
 {
   "name": "taio-merkle",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "src/index.ts",
   "engines": {
     "node": ">=20.0.0"
