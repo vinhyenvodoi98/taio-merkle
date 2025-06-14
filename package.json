@@ -1,7 +1,11 @@
 {
   "name": "taio-merkle",
-  "version": "1.0.3",
-  "main": "src/index.ts",
+  "version": "1.0.4",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },
