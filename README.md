@@ -47,11 +47,13 @@ npm run build
 ### Releasing
 
 1. Update version in `package.json`
-2. Create a new tag:
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
+2. Create a new GitHub release:
+   - Go to GitHub repository
+   - Click "Releases" in the right sidebar
+   - Click "Create a new release"
+   - Choose a tag version (e.g., v1.0.0)
+   - Add release notes
+   - Click "Publish release"
 3. The GitHub workflow will automatically:
    - Build the package
    - Run tests
