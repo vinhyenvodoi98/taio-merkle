@@ -29,6 +29,36 @@ npm install taio-merkle
 - @types/node >= 22.15.30
 - @vitest/coverage-v8 >= 3.2.2 (for test coverage)
 
+## Development
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Build the package
+npm run build
+```
+
+### Releasing
+
+1. Update version in `package.json`
+2. Create a new tag:
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+3. The GitHub workflow will automatically:
+   - Build the package
+   - Run tests
+   - Publish to NPM if tests pass
+
+Note: You need to set up `NPM_TOKEN` in your GitHub repository secrets.
+
 ## Usage
 
 ### Basic Usage
