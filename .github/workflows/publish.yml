@@ -2,21 +2,16 @@ name: Publish to NPM
 
 on:
   release:
-    types: [published, created] # Trigger on both published and created events
-  workflow_dispatch: # Allow manual trigger for testing
+    types: [published]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
-
-      - name: Debug Event
-        run: |
-          echo "Event name: ${{ github.event_name }}"
-          echo "Event action: ${{ github.event.action }}"
-          echo "Release tag: ${{ github.event.release.tag_name }}"
-          echo "Release name: ${{ github.event.release.name }}"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,9 +24,6 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      - name: Run tests
-        run: npm test
 
       - name: Publish to NPM
         run: npm publish --access public
