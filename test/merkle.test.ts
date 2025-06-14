@@ -7,7 +7,6 @@ describe("Merkle Tree", () => {
     const leafTag = "Bitcoin_Transaction";
     const branchTag = "Bitcoin_Transaction";
     const root = calculateMerkleRoot(data, leafTag, branchTag);
-    console.log("Merkle root:", root);
     expect(root).toBeDefined();
   });
 
@@ -84,7 +83,6 @@ describe("Merkle Proofs", () => {
     const data = ["aaa", "aaa", "bbb", "bbb"];
     const proofs = calculateMerkleProofs(data, leafTag, branchTag);
 
-    console.log("proofs", proofs);
     // Check that each instance has its own proof
     expect(proofs["0"]).toHaveLength(Math.ceil(Math.log2(data.length)));
     expect(proofs["2"]).toHaveLength(Math.ceil(Math.log2(data.length)));
