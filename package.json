@@ -6,7 +6,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "test": "vitest run",
+    "test": "vitest",
     "test:watch": "vitest",
     "build": "tsup",
     "coverage": "vitest run --coverage"
