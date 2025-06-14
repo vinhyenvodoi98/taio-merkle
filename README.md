@@ -1,11 +1,12 @@
 # Taio Merkle
 
-A TypeScript library for calculating Merkle roots using BIP340-compatible tagged hashes.
+A TypeScript library for calculating Merkle roots and proofs using BIP340-compatible tagged hashes.
 
 ## Features
 
 - BIP340-compatible tagged hash implementation
 - Merkle root calculation for arrays of data
+- Merkle proof generation and verification
 - Separate tags for leaf nodes and branch nodes
 - TypeScript support with type definitions
 
@@ -56,6 +57,24 @@ const root = calculateMerkleRoot(data, leafTag, branchTag);
 const hash = taggedHash("hello", "MyCustomTag");
 ```
 
+### Working with Merkle Proofs
+
+```typescript
+import { calculateMerkleRoot, calculateMerkleProofs, verifyMerkleProof } from 'taio-merkle';
+
+const data = ["aaa", "bbb", "ccc"];
+const leafTag = "Bitcoin_Transaction";
+const branchTag = "Bitcoin_Transaction";
+
+// Calculate root and proofs
+const root = calculateMerkleRoot(data, leafTag, branchTag);
+const proofs = calculateMerkleProofs(data, leafTag, branchTag);
+
+// Verify a proof
+const isValid = verifyMerkleProof(data[0], proofs["0"], root, leafTag, branchTag);
+console.log("Is proof valid?", isValid); // true
+```
+
 ### API Reference
 
 #### `taggedHash(data: string, tag: string): string`
@@ -77,6 +96,40 @@ Calculates the Merkle root of an array of strings.
 - Returns: The hex-encoded Merkle root hash
 - Throws: Error if data array is empty
 
+#### `calculateMerkleProofs(data: string[], leafTag: string, branchTag: string): MerkleProofMap`
+
+Calculates Merkle proofs for all nodes in the data array.
+
+- `data`: Array of strings to calculate proofs for
+- `leafTag`: Tag used for hashing leaf nodes
+- `branchTag`: Tag used for hashing branch nodes
+- Returns: A map of Merkle proofs for each node, where keys are node indices
+- Throws: Error if data array is empty or tags are empty
+
+#### `verifyMerkleProof(leaf: string, proof: MerkleProof, root: string, leafTag: string, branchTag: string): boolean`
+
+Verifies if a Merkle proof is valid for a given leaf node and root.
+
+- `leaf`: The leaf node to verify
+- `proof`: The Merkle proof for the leaf node
+- `root`: The Merkle root to verify against
+- `leafTag`: Tag used for hashing leaf nodes
+- `branchTag`: Tag used for hashing branch nodes
+- Returns: true if the proof is valid, false otherwise
+- Throws: Error if tags are empty
+
+## Types
+
+```typescript
+type Hash = string;
+type MerkleNode = string;
+type MerkleProofStep = [Hash, number]; // [hash, isRight]
+type MerkleProof = MerkleProofStep[];
+interface MerkleProofMap {
+  [key: string]: MerkleProof; // key is node index
+}
+```
+
 ## How It Works
 
 The library implements BIP340's tagged hash specification:
@@ -88,6 +141,11 @@ For Merkle root calculation:
 1. Each input string is hashed using the leaf tag
 2. Pairs of hashes are combined and hashed again using the branch tag
 3. This process continues until a single root hash remains
+
+For Merkle proofs:
+1. Each node's proof consists of sibling hashes and their positions (left/right)
+2. Proofs are ordered from leaf to root
+3. Verification reconstructs the root by following the proof steps
 
 ## License
 
