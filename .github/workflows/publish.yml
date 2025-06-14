@@ -1,9 +1,8 @@
 name: Publish to NPM
 
 on:
-  push:
-    tags:
-      - 'v*' # Trigger on version tags
+  release:
+    types: [published] # Trigger when a release is published
 
 jobs:
   publish:
